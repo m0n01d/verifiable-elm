@@ -9,7 +9,8 @@
     "test": "elm-test",
     "typecheck": "elm make src/Main.elm --output=/dev/null",
     "verify": "playwright test",
-    "verify:install": "playwright install chromium"
+    "verify:install": "playwright install chromium",
+    "screenshot": "npm run build && node scripts/screenshot.mjs"
   },
   "devDependencies": {
     "@playwright/test": "^1.48.0",

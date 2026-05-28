@@ -34,6 +34,23 @@ npm run verify       # the CI matrix, real DOM (Playwright) — 7 tests
 npm run typecheck    # elm make, no output
 ```
 
+## What it looks like
+
+The `/verify` dashboard lists the full unit × fixture matrix — the same data
+`window.__verify.runAll()` returns:
+
+![The verification dashboard listing every unit, fixture, and verdict](docs/screenshots/dashboard.png)
+
+Each `/verify/:unit/:fixture` route mounts the unit on the left and its
+verification report on the right — the artifact and its proof, side by side:
+
+| passing unit | the designed-to-fail probe |
+|---|---|
+| ![TodoApp three-mixed: the live todo list beside a passing report](docs/screenshots/unit-pass.png) | ![TodoStats inconsistent-counts: a FAIL report with a precise diagnosis](docs/screenshots/unit-fail.png) |
+
+> Regenerate these with `npm run screenshot` (builds, serves, captures to
+> `docs/screenshots/`, cleans up).
+
 ## The two tiers of verification
 
 This is the one structural difference from the React version, and it falls
