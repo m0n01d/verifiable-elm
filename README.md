@@ -3,10 +3,15 @@
 
 # Verifiable Elm
 
-The phase-3 verification philosophy ([`../phase-3-verify`](../phase-3-verify/README.md))
-ported to Elm. Same one idea: **every piece of the app should be trivially
-verifiable by an AI agent at runtime**, not just by a human reading code or a
-test suite running offline.
+The phase-3 verification philosophy ported to Elm. Same one idea: **every piece
+of the app should be trivially verifiable by an AI agent at runtime**, not just
+by a human reading code or a test suite running offline.
+
+> **Credit / origin.** This is an Elm port of the "Verifiable React" phase-3
+> demo from Anthropic's *How We Claude Code* workshop:
+> <https://github.com/anthropics/cwc-workshops/tree/main/how-we-claude-code/phase-3-verify>.
+> All six ideas below are theirs; this repo just re-expresses them in Elm. Their
+> original is Apache-2.0, and so is this.
 
 Verification is *runtime observation at the surface* — run the thing, drive it,
 read what it actually shows. Tests and typechecks are CI's job; a verifier's job
