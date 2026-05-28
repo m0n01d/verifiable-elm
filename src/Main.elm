@@ -232,18 +232,35 @@ body model =
                 ]
 
 
-{-| Render an isolated unit plus its declared verification report below it.
+{-| Render an isolated unit on the left and its declared verification report on
+the right — the unit and its proof, side by side (and a tidy screenshot).
 -}
 unitPage : String -> String -> Html Msg -> Html Msg
 unitPage unit fixture mounted =
-    div [ style "padding" "24px", style "max-width" "640px", style "margin" "0 auto" ]
-        [ mounted
-        , case Runner.runOne unit fixture of
-            Just result ->
-                Harness.report result
+    div
+        [ style "display" "flex"
+        , style "flex-wrap" "wrap"
+        , style "gap" "24px"
+        , style "align-items" "flex-start"
+        , style "max-width" "1100px"
+        , style "margin" "0 auto"
+        , style "padding" "24px"
+        ]
+        [ div [ style "flex" "1 1 300px", style "min-width" "280px" ]
+            [ mounted ]
+        , div
+            [ style "flex" "2 1 440px"
+            , style "min-width" "320px"
+            , style "border-left" "1px solid #e5e7eb"
+            , style "padding-left" "24px"
+            ]
+            [ case Runner.runOne unit fixture of
+                Just result ->
+                    Harness.report result
 
-            Nothing ->
-                text ""
+                Nothing ->
+                    text ""
+            ]
         ]
 
 

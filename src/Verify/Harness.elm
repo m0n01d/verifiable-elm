@@ -85,8 +85,8 @@ row r =
 
 report : RunResult -> Html msg
 report r =
-    div [ style "padding" "16px", style "border-top" "1px solid #d1d5db", style "margin-top" "16px" ]
-        [ h2 []
+    div []
+        [ h2 [ style "margin-top" "0" ]
             [ text (r.unit ++ " / " ++ r.fixture ++ " ")
             , verdictBadge r.verdict
             ]
