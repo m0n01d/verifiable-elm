@@ -17,6 +17,11 @@ Verification is *runtime observation at the surface* — run the thing, drive it
 read what it actually shows. Tests and typechecks are CI's job; a verifier's job
 is to confirm the real artifact behaves.
 
+> **New here?** [`VERIFICATION.md`](VERIFICATION.md) is a plain-language
+> walkthrough of how verification works — the vocabulary, the two tiers, a
+> hands-on "break it on purpose" exercise, and the stale-build gotcha that trips
+> up most newcomers (`npm run verify` passing while `npm test` fails).
+
 ```
 npm install
 npm run verify:install   # one-time: download Chromium for Playwright
