@@ -1,0 +1,56 @@
+<!-- Copyright 2026 Anthropic PBC -->
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Verifiable Elm</title>
+    <style>
+      :root { color-scheme: light dark; }
+      body { font-family: ui-sans-serif, system-ui, sans-serif; margin: 0; }
+      * { box-sizing: border-box; }
+      .verdict-PASS { color: #15803d; }
+      .verdict-FAIL { color: #b91c1c; }
+      .verdict-BLOCKED { color: #b45309; }
+      .verdict-SKIP { color: #6b7280; }
+      table { border-collapse: collapse; width: 100%; }
+      th, td { border: 1px solid #d1d5db; padding: 6px 10px; text-align: left; font-size: 14px; }
+      code { background: #11182708; padding: 1px 4px; border-radius: 3px; }
+      a { color: #2563eb; }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script src="/elm.js"></script>
+    <script>
+      // ---------------------------------------------------------------------
+      // The agent handle.  Elm has no globals, so we bridge window.__verify
+      // to the Elm runtime over two ports.  Each method sends a request string
+      // and resolves the promise when Elm answers on verifyResponse.
+      // ---------------------------------------------------------------------
+      const app = Elm.Main.init({ node: document.getElementById("app") });
+      const pending = {};
+
+      function request(kind) {
+        return new Promise((resolve) => {
+          (pending[kind] = pending[kind] || []).push(resolve);
+          app.ports.verifyRequest.send(kind);
+        });
+      }
+
+      app.ports.verifyResponse.subscribe(({ kind, data }) => {
+        const waiters = pending[kind] || [];
+        pending[kind] = [];
+        waiters.forEach((resolve) => resolve(data));
+      });
+
+      window.__verify = {
+        version: 1,
+        manifest: () => request("manifest"),
+        current: () => request("current"),
+        runAll: () => request("runAll"),
+      };
+    </script>
+  </body>
+</html>

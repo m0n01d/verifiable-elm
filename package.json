@@ -1,0 +1,20 @@
+{
+  "name": "phase-3-verify-elm",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Verifiable Elm — the phase-3 verification philosophy ported to an Elm todo app",
+  "scripts": {
+    "build": "elm make src/Main.elm --output=elm.js",
+    "dev": "npm run build && npx serve -s . -l 5199",
+    "test": "elm-test",
+    "typecheck": "elm make src/Main.elm --output=/dev/null",
+    "verify": "playwright test",
+    "verify:install": "playwright install chromium"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.48.0",
+    "elm": "^0.19.1-6",
+    "elm-test": "^0.19.1-revision12",
+    "serve": "^14.2.3"
+  }
+}
